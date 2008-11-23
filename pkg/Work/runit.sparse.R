@@ -138,6 +138,7 @@ test.dsyMatrix <- function()
 
 test.dpoMatrix <- function()
   {
+    DEACTIVATED()
     stmB <- as.simple_triplet_sym_matrix(as(A,"dpoMatrix"))
     checkEquals(stmB,stmA)
   }

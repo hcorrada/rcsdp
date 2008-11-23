@@ -23,28 +23,22 @@ test.prepare.data <- function()
   {
     prob.info <- get.prob.info(K,length(b))
     prob.data <- prepare.data(C,A,b,prob.info)
-    checkEquals(prob.data$C,probC)
-    checkEquals(prob.data$A,probA)
-    checkEquals(prob.data$b,probb)
+    checkEquals(prob.data,test.prob.data,check.attributes=FALSE)
   }
 
 test.prepare.stm.data <- function()
   {
     prob.info <- get.prob.info(K,length(b))
     prob.data <- prepare.data(stmC,A,b,prob.info)
-    checkEquals(prob.data$C,probC)
-    checkEquals(prob.data$A,probA)
-    checkEquals(prob.data$b,probb)
+    checkEquals(prob.data,test.prob.data,check.attributes=FALSE)
   }
 
 test.prepare.Matrix.data <- function()
   {
-    DEACTIVATED()
+#    DEACTIVATED()
     prob.info <- get.prob.info(K,length(b))
     prob.data <- prepare.data(MatC,MatA,b,prob.info)
-    checkEquals(prob.data$C,probC)
-    checkEquals(tmpA,tmpA2)
-    checkEquals(prob.data$b,probb)
+    checkEquals(prob.data,test.prob.data,check.attributes=FALSE)
   }
 
 test.csdp <- function()
@@ -64,7 +58,7 @@ test.stm.csdp <- function()
 
 test.Matrix.csdp <- function()
   {
-    DEACTIVATED()
+#    DEACTIVATED()
     ret <- csdp(coerce_blkmat(C,cfun=Matcfun),
                 coerce_const(A,cfun=Matcfun),
                 b,K)

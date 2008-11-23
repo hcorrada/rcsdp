@@ -3,7 +3,7 @@
 ## Mostly copied from sparse.R in Kurt Hornik's relations package
 
 simple_triplet_sym_matrix <-
-function(i, j, v, n = pmax(i,j),check.ind=FALSE)
+function(i, j, v, n = max(c(i,j)),check.ind=FALSE)
 {
   if (check.ind & any(i<j)) {
       stop("Index arguments 'i' and 'j' do not point to the lower triangle. Swapping indices")

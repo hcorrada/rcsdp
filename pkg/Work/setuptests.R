@@ -87,6 +87,8 @@ probA <- list(
 b <- c(1,2)
 probb <- c(0,1,2)
 
+test.prob.data <- structure(list(C=probC,A=probA,b=probb),class="csdpData")
+
 K <- list(type=c("s","s","l"),
           size=c(2,3,2))
 

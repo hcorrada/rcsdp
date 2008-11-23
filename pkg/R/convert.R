@@ -26,14 +26,19 @@ blkmatrix_R2csdp <- function(X,prob.info)
         else {
           data <- vector_R2csdp(cur.block)
         }
-        list(blocksize=as.integer(cur.size),
+        structure(list(blocksize=as.integer(cur.size),
              blockcategory=as.integer(cur.type),
-             data=as.double(data))
+             data=as.double(data)),class="csdpBlkMat")
       }
     
     nblocks <- prob.info$nblocks;
     list(nblocks=nblocks,
          blocks=lapply(seq_along(X),do.one.block))
+  }
+
+all.equal.csdpBlkMat <-
+  function(target, current, ...) {
+    all.equal.list(target,current,...)
   }
 
 blkmatrix_csdp2R <- function(X,prob.info)
@@ -90,19 +95,38 @@ constraints_R2csdp <- function(A,prob.info)
             entries <- vector_R2csdp(Aij[nnz]);
           }
           k <- k+1
-          ret[[k]] <- list(iindices=as.integer(iindices),
+          ret[[k]] <- structure(list(iindices=as.integer(iindices),
                            jindices=as.integer(jindices),
                            entries=as.double(entries),
                            blocknum=as.integer(blocknum),
                            blocksize=as.integer(cur.size),
                            constraintnum=as.integer(constraintnum),
-                           numentries=as.integer(length(entries)-1))
+                           numentries=as.integer(length(entries)-1)),class="csdpConstrMat")
 
         }
         ret[1:k]
       }
     lapply(seq_along(A),do.one.constraint);
   }
+
+all.equal.csdpConstrMat <-
+  function(target, current, ...) {
+    res <- all.equal.list(target[c("blocknum","blocksize","constraintnum","numentries")],
+                          current[c("blocknum","blocksize","constraintnum","numentries")],...)
+    if (is.logical(res)) {
+      if (!res) return(FALSE)
+      return(all.equal(simple_triplet_sym_matrix(i=target$iindices[-1],
+                                        j=target$jindices[-1],
+                                        v=target$entries[-1]),
+                       simple_triplet_sym_matrix(i=target$iindices[-1],
+                                        j=target$jindices[-1],
+                                        v=target$entries[-1])))
+    }
+    return(res)
+  }
+        
+
+    
 
 constraints_csdp2R <- function(A,prob.info)
   {

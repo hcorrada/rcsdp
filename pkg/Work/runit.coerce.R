@@ -26,12 +26,24 @@ stmA <- list(
                   c(0,1))
              )
 
+matC <- list(new("dsTMatrix",j=as.integer(c(1,2,2)-1),i=as.integer(c(1,1,2)-1),x=c(2,1,2),uplo='U',Dim=as.integer(c(2,2))),
+             new("dsTMatrix",j=as.integer(c(1,3,2,3)-1),i=as.integer(c(1,1,2,3)-1),x=c(3,1,2,3),uplo='U',Dim=as.integer(c(3,3))),
+             c(0,0))
+
 test.c <- function()
   {
-    checkEquals(stmC,coerce_blkmat(C))
+    res <- coerce_blkmat(coerce_blkmat(C),cfun=as.matrix)
+    checkEquals(C,res,check.attributes=FALSE)
+
+    res <- coerce_blkmat(coerce_blkmat(C,cfun=function(x) as(x,"dsTMatrix")),cfun=as.matrix)
+    checkEquals(C,res,check.attributes=FALSE)
   }
 
 test.a <- function()
   {
-    checkEquals(stmA,coerce_const(A))
+    res <- coerce_const(coerce_const(A),cfun=as.matrix)
+    checkEquals(A,res,check.attributes=FALSE)
+
+    res <- coerce_const(coerce_const(A,cfun=function(x) as(x,"dsTMatrix")),cfun=as.matrix)
+    checkEquals(A,res,check.attributes=FALSE)
   }

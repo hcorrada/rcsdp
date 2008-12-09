@@ -20,6 +20,7 @@
 # The default settings for gcc:
 #
 CFLAGS=-O3 -ansi -Wall -DNOSHORTS -I../include
+CFLAGS+=-fPIC
 #
 # Notes on CFLAGS.
 #

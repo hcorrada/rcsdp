@@ -13,7 +13,7 @@ build: ${PKG_PATH}/src/Csdp.ts ${TARGET}
 
 ${TARGET}: ${SOURCES}
 	cd $(shell dirname $<); \
-	R CMD SHLIB -o ${TARGET} $(foreach SRC,${SOURCES},$(shell basename ${SRC}))
+	R CMD SHLIB $(foreach SRC,${SOURCES},$(shell basename ${SRC}))
 
 %.o: %.c
 

@@ -1,7 +1,11 @@
+args <- commandArgs(trailingOnly=TRUE)
+shlib.name <- args[1]
+stopifnot(!is.null(shlib.name))
+
 pkg.dir <- file.path("..")
 src.files <- list.files(file.path(pkg.dir,"R"),pattern=".*\\.R$")
 invisible(lapply(src.files,function(filenm) source(file.path(pkg.dir,"R",filenm))))
-dyn.load(file.path(pkg.dir,"src",paste("Rcsdp",.Platform$dynlib.ext,sep="")))
+dyn.load(file.path(pkg.dir,"src",paste(shlib.name,.Platform$dynlib.ext,sep="")))
 
 
 library(Matrix)

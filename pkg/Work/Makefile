@@ -5,7 +5,7 @@ SOURCES=$(wildcard ${PKG_PATH}/src/*.c)
 OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 
 TARGET=Rcsdp
-
+SHLIBNAME=$(firstword $(basename $(notdir ${SOURCES})))
 
 all: build test
 
@@ -13,7 +13,7 @@ build: ${PKG_PATH}/src/Csdp.ts ${TARGET}
 
 ${TARGET}: ${SOURCES}
 	cd $(shell dirname $<); \
-	R CMD SHLIB -o ${TARGET}.so $(foreach SRC,${SOURCES},$(shell basename ${SRC}))
+	R CMD SHLIB $(foreach SRC,${SOURCES},$(shell basename ${SRC}))
 
 %.o: %.c
 
@@ -32,4 +32,5 @@ cleanconf:
 	rm -rf ${PKG_PATH}/src/config.log ${PKG_PATH}/src/config.status ${PKG_PATH}/src/autom4te.cache ${PKG_PATH}/src/Makevars ${PKG_PATH}/configure
 
 test: 
-	R --slave < runtests.R
+	echo "shlib" ${SHLIBNAME} "sources" ${SOURCES} "sources[0]" ${SOURCES[0]}$
+	R --slave --args ${SHLIBNAME} < runtests.R

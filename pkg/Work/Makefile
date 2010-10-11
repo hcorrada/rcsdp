@@ -18,7 +18,8 @@ ${TARGET}: ${SOURCES}
 %.o: %.c
 
 ${PKG_PATH}/src/Csdp.ts: 
-	make -C ${PKG_PATH}/src/Csdp/lib libsdp.a CC=${CC} CFLAGS="${CFLAGS} ${CPICFLAGS} -DNOSHORTS -I${PKG_PATH}/src/Csdp/include" AR=${AR} RANLIB=ranlib && touch $@ 
+	make -C ${PKG_PATH}/src/Csdp/lib libsdp.a CC=${CC} CFLAGS="${CFLAGS} ${CPICFLAGS} -DNOSHORTS -I${PKG_PATH}/src/Csdp/include" AR=${AR} RANLIB=ranlib
+	touch $@ 
 	
 cleanso:
 	rm -f ${PKG_PATH}/src/*.so ${PKG_PATH}/src/*.o

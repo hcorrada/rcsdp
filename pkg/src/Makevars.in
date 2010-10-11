@@ -5,5 +5,5 @@ PKG_LIBS=@PKG_LIBS@
 $(SHLIB): @CSDP_TS@
 
 Csdp.ts:
-	@($(MAKE) -C Csdp/lib libsdp.a CC="$(CC)" CFLAGS="$(CFLAGS) $(CPICFLAGS) -DNOSHORTS -ICsdp/lib/include" AR=$(AR) RANLIB=$(RANLIB))
+	@($(MAKE) -C Csdp/lib libsdp.a CC="$(CC)" CFLAGS="$(CFLAGS) $(CPICFLAGS) -DNOSHORTS -I../include" AR=$(AR) RANLIB=$(RANLIB))
 	touch $@

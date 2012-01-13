@@ -1,5 +1,5 @@
 Package: Rcsdp
-Version: 0.1-5
+Version: 0.1.50
 Title: R interface to the CSDP semidefinite programming library
 Author: Hector Corrada Bravo (CSDP by Brian Borchers)
 Maintainer: Hector Corrada Bravo <hcorrada@gmail.com>

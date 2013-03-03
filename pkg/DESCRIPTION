@@ -7,5 +7,5 @@ Description: R interface to the CSDP semidefinite programming library. Installs 
 LazyLoad: yes
 Suggests: Matrix
 Enhances: Matrix
-License: file LICENSE
+License: CPL-1.0
 URL: https://projects.coin-or.org/Csdp/

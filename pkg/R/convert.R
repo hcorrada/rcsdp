@@ -139,7 +139,7 @@ constraints_csdp2R <- function(A,prob.info)
             .simple_triplet_zero_sym_matrix(size)
           } else {
             rep(0, size)
-          }}, prob.info$block.types, prob.info$block.sizes)
+          }}, prob.info$block.types, prob.info$block.sizes, SIMPLIFY=FALSE)
         
         for (j in 1:length(Ai)) {
           Aij <- Ai[[j]];

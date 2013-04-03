@@ -1,4 +1,4 @@
-RUNIT_DIR=$(shell pwd)
+RUNIT_DIR=${shell pwd}
 PKG_PATH=$(shell dirname ${RUNIT_DIR})
 
 SOURCES=$(wildcard ${PKG_PATH}/src/*.c)
@@ -7,9 +7,30 @@ OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 TARGET=Rcsdp
 SHLIBNAME=$(firstword $(basename $(notdir ${SOURCES})))
 
-all: build test
+PKG_VERSION=$(shell Rscript -e 'cat(read.dcf("${PKG_PATH}/DESCRIPTION", fields="Version")[1,])')
+PKG_TARBALL=$(shell printf "Rcsdp_%s.tar.gz" ${PKG_VERSION})
 
-build: ${PKG_PATH}/src/Csdp.ts ${TARGET}
+all: build test check config
+
+config: ${PKG_PATH}/src/Makevars
+
+${PKG_PATH}/src/Makevars: ${PKG_PATH}/configure
+	cd ${PKG_PATH}; \
+	./configure
+
+${PKG_PATH}/configure: ${PKG_PATH}/configure.ac
+	cd ${PKG_PATH}; \
+	autoconf --verbose
+
+tarball: ${PKG_TARBALL}
+
+${PKG_TARBALL}: config
+	R CMD build ${PKG_PATH}
+	
+check: ${PKG_TARBALL}
+	R CMD check ${PKG_TARBALL}
+
+build: config ${PKG_PATH}/src/Csdp.ts ${TARGET}
 
 ${TARGET}: ${SOURCES}
 	cd $(shell dirname $<); \

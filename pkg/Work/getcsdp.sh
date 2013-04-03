@@ -1,7 +1,7 @@
 #!/bin/bash
 
 URL="http://www.coin-or.org/download/source/Csdp"
-LATEST="Csdp-6.0.1.tgz"
+LATEST="Csdp-6.1.1.tgz"
 DESTINATION=../src/Csdp
 
 if [[ -n "$@" ]] ; then

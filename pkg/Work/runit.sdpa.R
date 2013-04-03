@@ -48,7 +48,7 @@ test.sol.ex1 <- function()
 test.theta <- function()
   {
     prob <- readsdpa(file=file.path("..","src","Csdp","test","theta1.dat-s"))
-    cat("Read problem\n");
+    cat("Read problem\n")
     sol <- csdp(prob$C,prob$A,prob$b,prob$K)
     cat("Solved problem\n");
     checkEquals(sol$pobj,23,tolerance=1e-6)

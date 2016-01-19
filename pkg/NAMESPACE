@@ -1,6 +1,7 @@
 useDynLib(Rcsdp)
 
 export("csdp",
+       "csdp.control",
        "readsdpa",
        "writesdpa",
        "readsdpa.sol",

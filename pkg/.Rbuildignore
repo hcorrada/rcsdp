@@ -1,3 +1,5 @@
 .svn
 Work
- 
+src/Csdp/lib/*.o 
+.gitignore
+

@@ -144,3 +144,19 @@ write.control.file <- function(control)
       cat(names(control)[i],"=",control[[i]],"\n",sep="",file=fileptr)
     close(fileptr)
   }
+
+csdp_minimal <- function(sum.block.sizes, nconstraints, nblocks, block.types, block.sizes, C, A, b) {
+  return(.Call(
+    "csdp",
+    as.integer(sum.block.sizes),
+    as.integer(nconstraints),
+    as.integer(nblocks),
+    as.integer(block.types),
+    as.integer(block.sizes),
+    C,
+    A,
+    b,
+    PACKAGE="Rcsdp"
+  ))
+}
+

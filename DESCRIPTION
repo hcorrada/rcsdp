@@ -13,3 +13,4 @@ Enhances: Matrix
 License: CPL-1.0
 URL: https://projects.coin-or.org/Csdp/
 RoxygenNote: 7.0.2
+BugReports: https://github.com/hcorrada/rcsdp/issues

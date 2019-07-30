@@ -1,5 +1,6 @@
 \name{csdp}
 \alias{csdp}
+\alias{csdp_minimal}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Solve semidefinite program with CSDP}
 \description{
@@ -64,6 +65,14 @@ csdp(C, A, b, K,control=csdp.control())
 	the sizes given in argument \code{K}. It also checks that the
 	lengths of arguments \code{b} and \code{A}
 	are equal. It does not check for symmetry in the problem data.
+	
+	\code{csdp_minimal} is a minimal wrapper to the C code underlying \code{csdp}. It assumes that the arguments 
+	\code{sum.block.sizes}, \code{nconstraints}, \code{nblocks}, \code{block.types}, and \code{block.sizes}
+	are provided as if they were created by \code{Rcsdp:::prob.info} and that the arguments \code{C}, \code{A}, and 
+	\code{b} are provided as if they were created by \code{Rcsdp:::prepare.data}. This function may be useful when 
+	calling the csdp functionality iteratively and most of the optimization details stays the same. For example, when the
+	control file created by \code{Rcsdp:::write.control.file} stays the same across iterations, but it would be recreated
+	on each iteration by \code{csdp}.
 }
 \value{
   \item{X}{Optimal primal solution \eqn{X}. A list containing blocks in the

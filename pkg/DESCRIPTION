@@ -9,3 +9,4 @@ Imports: methods
 Enhances: Matrix
 License: CPL-1.0
 URL: https://projects.coin-or.org/Csdp/
+BugReports: https://github.com/hcorrada/rcsdp/issues

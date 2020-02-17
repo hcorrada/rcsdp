@@ -1,3 +1,5 @@
+# based partly on https://github.com/r-lib/actions/blob/master/examples/check-full.yaml
+
 on: [push, pull_request]
 
 name: R-CMD-check
@@ -27,38 +29,28 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies=TRUE), "depends.Rds", version=2)
-        shell: Rscript {0}
-        
+      - uses: r-lib/actions/setup-pandoc@master
+      
       - name: Cache packages
         if: runner.os != 'Windows'
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
-          restore-keys: ${{ runner.os }}-r${{ matrix.config.r }}-
+          key: ${{ runner.os }}-r${{ matrix.config.r }}-${{ hashFiles('DESCRIPTION') }}
           
       - name: Install system dependencies
         if: runner.os == 'Linux'
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
+          Rscript -e "install.packages('remotes')" -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
           
       - name: Install dependencies
-        run: |
-          library(remotes)
-          deps <- readRDS("depends.Rds")
-          deps[["installed"]] <- vapply(deps[["package"]], remotes::local_sha, character(1))
-          update(deps)
-          remotes::install_cran("rcmdcheck")
-        shell: Rscript {0}
+        run: Rscript -e "install.packages('remotes')" -e "remotes::install_deps(dependencies=TRUE)" -e "remotes::install_cran('rcmdcheck')"
+
         
       - name: Check
-        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
-        shell: Rscript {0}
+        run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
+

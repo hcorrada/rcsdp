@@ -1,6 +1,6 @@
 Package: Rcsdp
 Version: 0.1.56
-Title: R interface to the CSDP semidefinite programming library
+Title: R Interface to the CSDP Semidefinite Programming Library
 Authors@R: c(
     person("Hector", "Corrada Bravo", email="hcorrada@gmail.com", role=c("aut", "cre")),
     person("Brian", "Borchers", role="aut"),

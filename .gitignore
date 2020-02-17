@@ -6,5 +6,6 @@ src/Csdp/lib/libsdp.a
 src/Makevars
 src/*.o
 *.Rcheck
+auto*.cache
 
 .Rproj.user

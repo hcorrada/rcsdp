@@ -2,6 +2,7 @@
 Work
 src/Csdp/lib/*.o 
 .gitignore
+auto*.cache
 
 ^.*\.Rproj$
 ^\.Rproj\.user$

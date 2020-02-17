@@ -5,3 +5,4 @@ src/Csdp/lib/*.o
 
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.github/workflows/R-CMD-check\.yaml$

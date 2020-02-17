@@ -1,4 +1,11 @@
-2012-04-19 Hector Corrada Bravo <hcorrada@gmail.com> - commited version 1.1.52
+2020-02-17 Hector Corrada Bravo <hcorrada@gmail.com> - commited version 0.1.56
+
+* Exposes function 'csdp.control' through NAMESPACE
+* Adds function 'csdp_minimal' (contributed by Don van den Bergh - https://github.com/vandenman, https://github.com/hcorrada/rcsdp/pull/1)
+* Fixes 'significant warning' from use of `R CMD config` to get
+CPP variable
+
+2012-04-19 Hector Corrada Bravo <hcorrada@gmail.com> - commited version 0.1.52
 
 * Updated CSDP to version 6.1.1
 * Fixed bug in constraint matrix conversion from default behavior of mapply

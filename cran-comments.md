@@ -16,4 +16,4 @@ installation (clang: error: unsupported option '-fopenmp')
 
 ## Version notes
 
-This version (0.1.56) removes use of R CMD config for variable CPP in configure script
+This version (0.1.56) removes use of R CMD config for variable CPP in configure script. See NEWS.md file for further updates.

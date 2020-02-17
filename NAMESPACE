@@ -1,4 +1,5 @@
-useDynLib(Rcsdp)
+useDynLib(Rcsdp, .registration = TRUE, .fixes = "C_")
+
 importFrom("methods", "as")
 importFrom("stats", "rnorm")
 

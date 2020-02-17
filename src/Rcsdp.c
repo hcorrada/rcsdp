@@ -8,6 +8,8 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <declarations.h>
+#include <stdlib.h> // for NULL
+#include <R_ext/Rdynload.h>
 
 SEXP int_vector_csdp2R(int, int*);
 SEXP double_vector_csdp2R(int, double*);
@@ -337,4 +339,20 @@ void free_constraints(int k,
 
       free(constraints);
     };
+}
+
+
+static const R_CallMethodDef CallEntries[] = {
+  {"csdp",          (DL_FUNC) &csdp,          8},
+  {"readsdpa",      (DL_FUNC) &readsdpa,      2},
+  {"readsdpa_sol",  (DL_FUNC) &readsdpa_sol,  4},
+  {"writesdpa",     (DL_FUNC) &writesdpa,     9},
+  {"writesdpa_sol", (DL_FUNC) &writesdpa_sol, 6},
+  {NULL, NULL, 0}
+};
+
+void R_init_Rcsdp(DllInfo *dll)
+{
+  R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+  R_useDynamicSymbols(dll, FALSE);
 }

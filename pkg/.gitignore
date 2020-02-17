@@ -1,9 +1,0 @@
-src/Csdp/lib/*.o
-config.log
-config.status
-src/Csdp/lib/Csdp.ts
-src/Csdp/lib/libsdp.a
-src/Makevars
-src/*.o
-*.Rcheck
-

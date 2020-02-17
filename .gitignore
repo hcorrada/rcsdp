@@ -7,3 +7,4 @@ src/Makevars
 src/*.o
 *.Rcheck
 
+.Rproj.user

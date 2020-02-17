@@ -35,7 +35,7 @@ csdp(C, A, b, K,control=csdp.control())
   \item{A}{A list of length \eqn{m} containing block diagonal constraint matrices
     \eqn{A_i}. Each constraint matrix \eqn{A_i} is specified by a list
 	of blocks as explained in the Details section.}
-  \item{b}{A numeric vector of length \eqn{m} containg the right hand side of the constraints.}
+  \item{b}{A numeric vector of length \eqn{m} containing the right hand side of the constraints.}
   \item{K}{Describes the domain of each block of the sdp problem. It is a list with the following elements:
     \describe{
       \item{type:}{A character vector with entries \code{"s"} or

@@ -137,7 +137,7 @@ SEXP get_prob_info(struct blockmatrix X)
     intvec[i] = X.blocks[i].blocksize;
   SET_VECTOR_ELT(ret, 1, sizes);
 
-  UNPROTECT(2);
+  UNPROTECT(3);
   return ret;
 }
 

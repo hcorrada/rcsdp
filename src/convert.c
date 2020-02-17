@@ -13,6 +13,7 @@ SEXP int_vector_csdp2R(int n,
   intvec = INTEGER(ret);
   for (i=1; i<=n; i++)
     intvec[i] = y[i];
+  UNPROTECT(1);
   return ret;
 }
 
@@ -27,6 +28,7 @@ SEXP double_vector_csdp2R(int n,
   dblvec = REAL(ret);
   for (i=1; i<=n; i++)
     dblvec[i] = y[i];
+  UNPROTECT(1);
   return ret;
 }
 

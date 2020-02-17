@@ -9,3 +9,4 @@ auto*.cache
 ^\.github/workflows/R-CMD-check\.yaml$
 ^cran-comments\.md$
 ^revdep$
+^CRAN-RELEASE$

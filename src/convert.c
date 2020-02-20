@@ -170,8 +170,6 @@ SEXP constraints_csdp2R(int numconstraints,
 
   enum constraint_blockslots {IIND, JIND, ENTRIES, BLOCKNUM, BLOCKSIZE, CONSTRAINTNUM, NUMENTRIES};
  
- // int *intvec;
- // double *dblvec;
   int nblocks, nnz;
 
   ret = PROTECT(allocVector(VECSXP, numconstraints));

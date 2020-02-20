@@ -32,20 +32,21 @@ SEXP csdp(SEXP n_p,
 	  SEXP b_p)
 {
   SEXP X_p, Z_p, y_p, ret, pobj_p, dobj_p, status_p;
-  SEXP Ai, Aij, pData;
+  //SEXP Ai, Aij, pData;
   enum AIJ_SLOTS {AIJ_NNZ, AIJ_IIND, AIJ_JIND, AIJ_X};
 
-  int i, j, k;
+//  int i, j, k;
   int n, nblocks, nconstraints, *blocktypes, *blocksizes;
-  int nnz, blkcat, blksize, allocsize, *intvec;
-  double *dblvec;
+  //int nnz, blkcat, blksize, allocsize, *intvec;
+//  double *dblvec;
 
   struct blockmatrix C;
   struct constraintmatrix *constraints;
-  struct blockmatrix X,Z;
-  double *yy, *y, *bb, *b;
+  struct blockmatrix X, Z;
+//  double *bb, *yy, 
+  double *y, *b;
   double pobj, dobj;
-  struct sparseblock *blockptr;
+  //struct sparseblock *blockptr;
   int status;
 
   n = INTEGER(n_p)[0];

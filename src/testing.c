@@ -46,7 +46,7 @@ SEXP test_blkmatrix(SEXP X)
 {
   struct blockmatrix XX;
   SEXP ret;
-  int i;
+  //int i;
 
   XX = blkmatrix_R2csdp(X);
   ret = blkmatrix_csdp2R(XX);

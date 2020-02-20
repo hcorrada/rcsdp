@@ -164,7 +164,7 @@ SEXP constraints_csdp2R(int numconstraints,
 		      struct constraintmatrix *constraints)
 {
   struct sparseblock *ptr;
-  int i, j, k;
+  int i, j;//, k;
   SEXP ret, Ai, Aij;
   SEXP iindices, jindices, entries;
   SEXP blocknum, blocksize, constraintnum;
@@ -172,8 +172,8 @@ SEXP constraints_csdp2R(int numconstraints,
 
   enum constraint_blockslots {IIND, JIND, ENTRIES, BLOCKNUM, BLOCKSIZE, CONSTRAINTNUM, NUMENTRIES};
  
-  int *intvec;
-  double *dblvec;
+ // int *intvec;
+ // double *dblvec;
   int nblocks, nnz;
 
   PROTECT(ret = allocVector(VECSXP, numconstraints));

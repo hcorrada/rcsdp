@@ -99,13 +99,13 @@ SEXP csdp(SEXP n_p,
   /* Copy y */
   y_p = double_vector_csdp2R(nconstraints, y);
 
-  PROTECT(pobj_p = allocVector(REALSXP,1)); REAL(pobj_p)[0] = pobj;
-  PROTECT(dobj_p = allocVector(REALSXP,1)); REAL(dobj_p)[0] = dobj;
-  PROTECT(status_p = allocVector(INTSXP,1)); INTEGER(status_p)[0] = status;
+  pobj_p = PROTECT(allocVector(REALSXP,1)); REAL(pobj_p)[0] = pobj;
+  dobj_p = PROTECT(allocVector(REALSXP,1)); REAL(dobj_p)[0] = dobj;
+  status_p = PROTECT(allocVector(INTSXP,1)); INTEGER(status_p)[0] = status;
   
   free_prob(n,nconstraints,C,b,constraints,X,y,Z);
 
-  PROTECT(ret = allocVector(VECSXP,6));
+  ret = PROTECT(allocVector(VECSXP,6));
   SET_VECTOR_ELT(ret,0,X_p);
   SET_VECTOR_ELT(ret,1,Z_p);
   SET_VECTOR_ELT(ret,2,y_p);
@@ -113,7 +113,7 @@ SEXP csdp(SEXP n_p,
   SET_VECTOR_ELT(ret,4,dobj_p);
   SET_VECTOR_ELT(ret,5,status_p);
 
-  UNPROTECT(7);
+  UNPROTECT(4);
   return ret;
 }
 
@@ -160,7 +160,7 @@ SEXP readsdpa(SEXP filename,
   status = read_prob(fname,&n,&k,&C,&b,&constraints,printlevel);
   if (status) error("Error reading sdpa file %s, status:%d\n",fname,status);
 
-  PROTECT(ret = allocVector(VECSXP,4));
+  ret = PROTECT(allocVector(VECSXP,4));
   SET_VECTOR_ELT(ret,0,blkmatrix_csdp2R(C));
   SET_VECTOR_ELT(ret,1,constraints_csdp2R(k,constraints));
   SET_VECTOR_ELT(ret,2,double_vector_csdp2R(k,b));
@@ -170,7 +170,7 @@ SEXP readsdpa(SEXP filename,
   free_mat(C);
   free_constraints(k,constraints);
 
-  UNPROTECT(5);
+  UNPROTECT(1);
   return ret;
 }
 
@@ -202,7 +202,7 @@ SEXP readsdpa_sol(SEXP filename,
     error("Reading reading solution in file %s: status %d\n",fname,status);
   }
 
-  PROTECT(ret = allocVector(VECSXP,3));
+  ret = PROTECT(allocVector(VECSXP,3));
   X_p = blkmatrix_csdp2R(X);
   y_p = double_vector_csdp2R(k,y);
   Z_p = blkmatrix_csdp2R(Z);
@@ -215,7 +215,7 @@ SEXP readsdpa_sol(SEXP filename,
   SET_VECTOR_ELT(ret, 0, X_p);
   SET_VECTOR_ELT(ret, 1, y_p);
   SET_VECTOR_ELT(ret, 2, Z_p);
-  UNPROTECT(4);
+  UNPROTECT(1);
   return ret;
 }
 		  

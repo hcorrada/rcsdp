@@ -124,30 +124,30 @@ SEXP blkmatrix_csdp2R(struct blockmatrix X)
   enum blkmatrix_slots {NBLOCKS, BLOCKS};
   enum blkrec_slots {BLOCKSIZE, BLOCKCATEGORY,DATA};
 
-  PROTECT(ret = allocVector(VECSXP, 2));
+  ret = PROTECT(allocVector(VECSXP, 2));
 
-  PROTECT(nblocks = allocVector(INTSXP, 1));
+  nblocks = PROTECT(allocVector(INTSXP, 1));
   INTEGER(nblocks)[0] = X.nblocks;
   SET_VECTOR_ELT(ret, NBLOCKS, nblocks);
 
-  PROTECT(blocks = allocVector(VECSXP, X.nblocks));
+  blocks = PROTECT(allocVector(VECSXP, X.nblocks));
   for (j=1; j<=X.nblocks; j++) {
-    PROTECT(cur_block = allocVector(VECSXP,3));
-    PROTECT(blocksize = allocVector(INTSXP,1));
+    cur_block = PROTECT(allocVector(VECSXP,3));
+    blocksize = PROTECT(allocVector(INTSXP,1));
     INTEGER(blocksize)[0] = X.blocks[j].blocksize;
     
-    PROTECT(blockcategory = allocVector(INTSXP,1));
+    blockcategory = PROTECT(allocVector(INTSXP,1));
     INTEGER(blockcategory)[0] = (X.blocks[j].blockcategory == MATRIX) ? 1 : 2;
 
     if (X.blocks[j].blockcategory == MATRIX) {
       allocsize = X.blocks[j].blocksize * X.blocks[j].blocksize;
-      PROTECT(data = allocVector(REALSXP,allocsize));
+      data = PROTECT(allocVector(REALSXP,allocsize));
       dblvec = REAL(data);
       for (k=0; k<allocsize; k++)
 	dblvec[k] = X.blocks[j].data.mat[k];
     }
     else
-      data = double_vector_csdp2R(X.blocks[j].blocksize, X.blocks[j].data.vec);
+      data = PROTECT(double_vector_csdp2R(X.blocks[j].blocksize, X.blocks[j].data.vec));
 
     SET_VECTOR_ELT(cur_block, BLOCKSIZE, blocksize);
     SET_VECTOR_ELT(cur_block, BLOCKCATEGORY, blockcategory);
@@ -176,7 +176,7 @@ SEXP constraints_csdp2R(int numconstraints,
  // double *dblvec;
   int nblocks, nnz;
 
-  PROTECT(ret = allocVector(VECSXP, numconstraints));
+  ret = PROTECT(allocVector(VECSXP, numconstraints));
 
   if (constraints != NULL) {
     for (i=1; i<=numconstraints; i++) {
@@ -186,26 +186,26 @@ SEXP constraints_csdp2R(int numconstraints,
 	nblocks += 1;
 	ptr = ptr->next;
       }
-      PROTECT(Ai = allocVector(VECSXP,nblocks));
+      Ai = PROTECT(allocVector(VECSXP,nblocks));
 
       ptr = constraints[i].blocks;
       for (j=1; j<=nblocks; j++) {
-	PROTECT(Aij = allocVector(VECSXP,7));
+	Aij = PROTECT(allocVector(VECSXP,7));
 	nnz = ptr->numentries;
 
-	PROTECT(numentries = allocVector(INTSXP,1));
+	numentries = PROTECT(allocVector(INTSXP,1));
 	INTEGER(numentries)[0] = nnz;
 	SET_VECTOR_ELT(Aij, NUMENTRIES, numentries);
 
-	PROTECT(blocknum = allocVector(INTSXP,1));
+	blocknum = PROTECT(allocVector(INTSXP,1));
 	INTEGER(blocknum)[0] = ptr->blocknum;
 	SET_VECTOR_ELT(Aij, BLOCKNUM, blocknum);
 
-	PROTECT(blocksize = allocVector(INTSXP,1));
+	blocksize = PROTECT(allocVector(INTSXP,1));
 	INTEGER(blocksize)[0] = ptr->blocksize;
 	SET_VECTOR_ELT(Aij, BLOCKSIZE, blocksize);
 	
-	PROTECT(constraintnum = allocVector(INTSXP,1));
+	constraintnum = PROTECT(allocVector(INTSXP,1));
 	INTEGER(constraintnum)[0] = ptr->constraintnum;
 	SET_VECTOR_ELT(Aij, CONSTRAINTNUM, constraintnum);
 
@@ -219,7 +219,7 @@ SEXP constraints_csdp2R(int numconstraints,
 	SET_VECTOR_ELT(Aij, ENTRIES, entries);
 
 	SET_VECTOR_ELT(Ai, j-1, Aij);
-	UNPROTECT(8);
+	UNPROTECT(6);
 	ptr = ptr->next;
       }
       SET_VECTOR_ELT(ret, i-1, Ai);

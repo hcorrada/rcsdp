@@ -89,15 +89,15 @@ SEXP csdp(SEXP n_p,
   /*
    * Grab X
    */
-  X_p = blkmatrix_csdp2R(X);
+  X_p = PROTECT(blkmatrix_csdp2R(X));
   
   /*
    * Grab Z
    */
-  Z_p = blkmatrix_csdp2R(Z);
+  Z_p = PROTECT(blkmatrix_csdp2R(Z));
   
   /* Copy y */
-  y_p = double_vector_csdp2R(nconstraints, y);
+  y_p = PROTECT(double_vector_csdp2R(nconstraints, y));
 
   pobj_p = PROTECT(allocVector(REALSXP,1)); REAL(pobj_p)[0] = pobj;
   dobj_p = PROTECT(allocVector(REALSXP,1)); REAL(dobj_p)[0] = dobj;
@@ -113,7 +113,7 @@ SEXP csdp(SEXP n_p,
   SET_VECTOR_ELT(ret,4,dobj_p);
   SET_VECTOR_ELT(ret,5,status_p);
 
-  UNPROTECT(4);
+  UNPROTECT(7);
   return ret;
 }
 
@@ -203,9 +203,9 @@ SEXP readsdpa_sol(SEXP filename,
   }
 
   ret = PROTECT(allocVector(VECSXP,3));
-  X_p = blkmatrix_csdp2R(X);
-  y_p = double_vector_csdp2R(k,y);
-  Z_p = blkmatrix_csdp2R(Z);
+  X_p = PROTECT(blkmatrix_csdp2R(X));
+  y_p = PROTECT(double_vector_csdp2R(k,y));
+  Z_p = PROTECT(blkmatrix_csdp2R(Z));
 
   free_mat(C);
   free_mat(X);
@@ -215,7 +215,7 @@ SEXP readsdpa_sol(SEXP filename,
   SET_VECTOR_ELT(ret, 0, X_p);
   SET_VECTOR_ELT(ret, 1, y_p);
   SET_VECTOR_ELT(ret, 2, Z_p);
-  UNPROTECT(1);
+  UNPROTECT(4);
   return ret;
 }
 		  

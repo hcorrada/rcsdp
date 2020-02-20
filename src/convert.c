@@ -9,11 +9,10 @@ SEXP int_vector_csdp2R(int n,
   int i;
   int *intvec;
 
-  PROTECT(ret = allocVector(INTSXP,n+1));
+  ret = allocVector(INTSXP,n+1);
   intvec = INTEGER(ret);
   for (i=1; i<=n; i++)
     intvec[i] = y[i];
-  UNPROTECT(1);
   return ret;
 }
 
@@ -24,11 +23,10 @@ SEXP double_vector_csdp2R(int n,
   int i;
   double *dblvec;
 
-  PROTECT(ret = allocVector(REALSXP,n+1));
+  ret = allocVector(REALSXP,n+1);
   dblvec = REAL(ret);
   for (i=1; i<=n; i++)
     dblvec[i] = y[i];
-  UNPROTECT(1);
   return ret;
 }
 
@@ -145,10 +143,10 @@ SEXP blkmatrix_csdp2R(struct blockmatrix X)
       dblvec = REAL(data);
       for (k=0; k<allocsize; k++)
 	dblvec[k] = X.blocks[j].data.mat[k];
-    }
-    else
+    } else {
       data = PROTECT(double_vector_csdp2R(X.blocks[j].blocksize, X.blocks[j].data.vec));
-
+    }
+    
     SET_VECTOR_ELT(cur_block, BLOCKSIZE, blocksize);
     SET_VECTOR_ELT(cur_block, BLOCKCATEGORY, blockcategory);
     SET_VECTOR_ELT(cur_block, DATA, data);
@@ -156,7 +154,7 @@ SEXP blkmatrix_csdp2R(struct blockmatrix X)
     UNPROTECT(4);
   }
   SET_VECTOR_ELT(ret, BLOCKS, blocks);
-  UNPROTECT(2);
+  UNPROTECT(3);
   return ret;
 }
 
@@ -183,49 +181,50 @@ SEXP constraints_csdp2R(int numconstraints,
       ptr = constraints[i].blocks;
       nblocks = 0;
       while (ptr != NULL) {
-	nblocks += 1;
-	ptr = ptr->next;
+        nblocks += 1;
+        ptr = ptr->next;
       }
       Ai = PROTECT(allocVector(VECSXP,nblocks));
 
       ptr = constraints[i].blocks;
       for (j=1; j<=nblocks; j++) {
-	Aij = PROTECT(allocVector(VECSXP,7));
-	nnz = ptr->numentries;
-
-	numentries = PROTECT(allocVector(INTSXP,1));
-	INTEGER(numentries)[0] = nnz;
-	SET_VECTOR_ELT(Aij, NUMENTRIES, numentries);
-
-	blocknum = PROTECT(allocVector(INTSXP,1));
-	INTEGER(blocknum)[0] = ptr->blocknum;
-	SET_VECTOR_ELT(Aij, BLOCKNUM, blocknum);
-
-	blocksize = PROTECT(allocVector(INTSXP,1));
-	INTEGER(blocksize)[0] = ptr->blocksize;
-	SET_VECTOR_ELT(Aij, BLOCKSIZE, blocksize);
-	
-	constraintnum = PROTECT(allocVector(INTSXP,1));
-	INTEGER(constraintnum)[0] = ptr->constraintnum;
-	SET_VECTOR_ELT(Aij, CONSTRAINTNUM, constraintnum);
-
-	iindices = int_vector_csdp2R(nnz, ptr->iindices);
-	SET_VECTOR_ELT(Aij,IIND, iindices);
-
-	jindices = int_vector_csdp2R(nnz, ptr->jindices);
-	SET_VECTOR_ELT(Aij, JIND, jindices);
-
-	entries = double_vector_csdp2R(nnz, ptr->entries);
-	SET_VECTOR_ELT(Aij, ENTRIES, entries);
-
-	SET_VECTOR_ELT(Ai, j-1, Aij);
-	UNPROTECT(6);
-	ptr = ptr->next;
+        Aij = PROTECT(allocVector(VECSXP,7));
+        nnz = ptr->numentries;
+        
+        numentries = PROTECT(allocVector(INTSXP,1));
+        INTEGER(numentries)[0] = nnz;
+        SET_VECTOR_ELT(Aij, NUMENTRIES, numentries);
+        
+        blocknum = PROTECT(allocVector(INTSXP,1));
+        INTEGER(blocknum)[0] = ptr->blocknum;
+        SET_VECTOR_ELT(Aij, BLOCKNUM, blocknum);
+        
+        blocksize = PROTECT(allocVector(INTSXP,1));
+        INTEGER(blocksize)[0] = ptr->blocksize;
+        SET_VECTOR_ELT(Aij, BLOCKSIZE, blocksize);
+        
+        constraintnum = PROTECT(allocVector(INTSXP,1));
+        INTEGER(constraintnum)[0] = ptr->constraintnum;
+        SET_VECTOR_ELT(Aij, CONSTRAINTNUM, constraintnum);
+        
+        iindices = PROTECT(int_vector_csdp2R(nnz, ptr->iindices));
+        SET_VECTOR_ELT(Aij,IIND, iindices);
+        
+        jindices = PROTECT(int_vector_csdp2R(nnz, ptr->jindices));
+        SET_VECTOR_ELT(Aij, JIND, jindices);
+        
+        entries = PROTECT(double_vector_csdp2R(nnz, ptr->entries));
+        SET_VECTOR_ELT(Aij, ENTRIES, entries);
+        
+        SET_VECTOR_ELT(Ai, j-1, Aij);
+        UNPROTECT(8);
+        ptr = ptr->next;
       }
       SET_VECTOR_ELT(ret, i-1, Ai);
       UNPROTECT(1);
     }
   }
+  UNPROTECT(1);
   return ret;
 }
 

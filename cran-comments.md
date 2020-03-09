@@ -6,7 +6,6 @@
 * OS X installation (on github-actions), R-devel 
 
 * solaris-x86-patched (using rhub)
-* fedora-gcc-devel (using rhub)
 
 ## R CMD check results
 
@@ -23,5 +22,5 @@ Ran revdepcheck::revdep_check on local installation and found no problems except
 
 ## Version notes
 
-This version (0.1.57) fixes remaining issues with CRAN check: (a) a warning in platform 'fedora-gcc-devel' for ignoring a return value, (b) an error in platform 'solaris-x86-patched' with environment variable CC (fixed in 0.56.1 by Brian Ripley)
+This version (0.1.57.1) fixes remaining issues with CRAN check: an error in platform 'solaris-x86-patched' with environment variable CC (fixed in 0.56.1 by Brian Ripley)
 

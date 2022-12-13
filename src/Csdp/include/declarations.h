@@ -216,9 +216,6 @@ double DDOT(int *, double *, int *, double *, int *);
 int IDAMAX(int *, double*, int *);
 void DGEMM(const char *, const char *, int *,   int *, int *, double *,   double *, int *, double *, int *, double *, double *,  int *);
 void DGEMV(const char *, int *, int *,  double *, double *, int *,  double *, int *, double *,  double*, int *);
-void DGER();
-void DTRSM();
-void DTRMV();
 #else
 double DNRM2_(int *, double *, int *);
 double DASUM_(int *, double *, int *);
@@ -226,9 +223,6 @@ double DDOT_(int *, double *, int *, double *, int *);
 int IDAMAX_(int *, double*, int *);
 void DGEMM_(const char *, const char *, int *,   int *, int *, double *,   double *, int *, double *, int *, double *, double *,  int *);
 void DGEMV_(const char *, int *, int *,  double *, double *, int *,   *, int *, double *,  double*, int *);
-void DGER_();
-void DTRSM_();
-void DTRMV_();
 #endif
 #else
 #ifdef NOUNDERBLAS
@@ -238,9 +232,6 @@ double ddot(int *, double *, int *, double *, int *);
 int idamax(int *, double*, int *);
 void dgemm(const char *, const char *, int *,   int *, int *, double *,   double *, int *, double *, int *, double *, double *,  int *);
 void dgemv(const char *, int *, int *,  double *, double *, int *,  double *, int *, double *,  double*, int *);
-void dger();
-void dtrsm();
-void dtrmv();
 #else
 double dnrm2_(int *, double *, int *);
 double dasum_(int *, double *, int *);
@@ -248,9 +239,6 @@ double ddot_(int *, double *, int *, double *, int *);
 int idamax_(int *, double*, int *);
 void dgemm_(const char *, const char *, int *,   int *, int *, double *,   double *, int *, double *, int *, double *, double *,  int *);
 void dgemv_(const char *, int *, int *,  double *, double *, int *,  double *, int *, double *,  double*, int *);
-void dger_();
-void dtrsm_();
-void dtrmv_();
 #endif
 #endif
 
@@ -262,24 +250,20 @@ void dtrmv_();
 #ifdef NOUNDERLAPACK
 void DPOTRF(const char *, const int *, double *, const int *, int *);
 void DPOTRS(const char *, int *, int *, double *, int *, double *, int *, int *);
-void DPOTRI();
 void DTRTRI(const char *, const char *, int *, double *, int *, int *);
 #else
 void DPOTRF_(const char *, const int *, double *, const int *, int *);
 void DPOTRS_(const char *, int *, int *, double *, int *, double *, int *, int *);
-void DPOTRI_();
 void DTRTRI_(const char *, const char *, int *, double *, int *, int *);
 #endif
 #else
 #ifdef NOUNDERLAPACK
 void dpotrf(const char *, const int *, double *, const int *, int *);
 void dpotrs(const char *, int *, int *, double *, int *, double *, int *, int *);
-void dpotri();
 void dtrtri(const char *, const char *, int *, double *, int *, int *);
 #else
 void dpotrf_(const char *, const int *, double *, const int *, int *);
 void dpotrs_(const char *, int *, int *, double *, int *, double *, int *, int *);
-void dpotri_();
 void dtrtri_(const char *, const char *, int *, double *, int *, int *);
 #endif
 #endif

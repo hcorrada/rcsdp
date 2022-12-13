@@ -1,5 +1,5 @@
 Package: Rcsdp
-Version: 0.1.57.3
+Version: 0.1.57.4
 Title: R Interface to the CSDP Semidefinite Programming Library
 Authors@R: c(
     person("Hector", "Corrada Bravo", email="hcorrada@gmail.com", role=c("aut", "cre")),
@@ -12,6 +12,6 @@ LazyLoad: yes
 Imports: methods
 Enhances: Matrix
 License: CPL-1.0
-URL: https://projects.coin-or.org/Csdp/
+URL: https://github.com/coin-or/Csdp/
 RoxygenNote: 7.0.2
 BugReports: https://github.com/hcorrada/rcsdp/issues

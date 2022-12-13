@@ -10,3 +10,7 @@ auto*.cache
 ^cran-comments\.md$
 ^revdep$
 ^CRAN-RELEASE$
+^Makefile
+^.github
+^.*.tar.gz
+^Makefile
